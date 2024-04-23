@@ -1,0 +1,71 @@
+# Aufgabe 9.3
+
+Eine Bäckerei gibt an, dass die von ihr hergestellten Brötchen ein
+Mindestgewicht von 50 g bei bekannter Standardabweichung σ = 3 g haben.
+Die Gewichte sind normalverteilt.
+Ein Statistikstudent, der misstrauisch ist und vermutet, dass die Brötchen ein zu geringes Gewicht haben,
+kauft in der Bäckerei n = 16 Brötchen und wiegt alle Brötchen.
+
+Er erhält folgende Werte (in g):
+
+46, 48, 52, 49, 46, 51, 52, 47, 49, 44, 48, 51, 49, 50, 53, 47
+
+```{R}
+werte <- c(46, 48, 52, 49, 46, 51, 52, 47, 49, 44, 48, 51, 49, 50, 53, 47)
+n <- length(werte)
+durchschnitt <- mean(werte)
+sa <- 3
+alpha <- 0.05
+mu <- 50
+```
+
+a) Stellen Sie die Null- und Alternativhypothese auf und führen Sie einen Hypothesentest auf dem 5 %-Signifikanzniveau durch.
+
+H0: u = 50
+HA: u < 50
+
+```{R}
+# Test mit p-Wert
+pWert <- pnorm(q = durchschnitt, mean = mu, sd = sa / sqrt(n))
+pWert > alpha # TRUE, also H0 wird nicht verworfen
+pWert
+
+# Test mit Verwerfungsbereich
+verwerfungswert <- qnorm(p = alpha, mean = durchschnitt, sd = sa / sqrt(n))
+verwerfungswert # 47.64
+# K = (-∞, 47.64)
+
+durchschnitt # 48.88
+durchschnitt > verwerfungswert
+# 48.88 ∉ K -> H0 wird nicht verworfen
+```
+
+b) Dem Studenten kommen bei seiner Auswertung Bedenken wegen des kleines
+Stichprobenumfangs von n = 16. Er untersucht deshalb noch einmal das Brötchengewicht, diesmal für n = 100 Brötchen.
+Er erhält denselben Mittelwert in der Stichprobe wie bei den n = 16 Brötchen.
+
+```{R}
+n <- 100
+# Test mit p-Wert
+pWert <- pnorm(q = durchschnitt, mean = mu, sd = sa / sqrt(n))
+pWert > alpha # TRUE, also H0 wird nicht verworfen
+pWert
+```
+
+Kommt er zur selben Testentscheidung wie in a)? Begründen Sie die Antwort.
+
+Nein, durch die viel grössere Stichprobe wird der p-Wert kleiner und die Nullhypothese wird verworfen.
+Dies liegt daran, dass bei einem grösseren Stichprobenumfang die Standardabweichung des Mittelwertes kleiner wird.
+
+c) Der Student ist nun auch misstrauisch gegenüber der bekannten Standardabweichung und möchte sich nur auf die gegebenen Daten verlassen. Wie geht er
+vor? Führen Sie den Hypothesentest durch.
+
+Mit einem t-Test
+
+```{R}
+t.test(werte, mu = 50, alternative = "less")
+````
+
+p-Wert ist 0.048, was knapp unter dem Signifikanzniveau von 0.05 liegt. Die Nullhypothese wird also verworfen.
+
+

@@ -1,0 +1,36 @@
+# Aufgabe 9.2
+Wir gehen von der Aufgabenstellung 9.1 aus. Die Standardabweichung der Abfüllungen ist nicht bekannt. Somit machen wir einen t-Test.
+
+
+a) Führen Sie den Test durch und treffen Sie den Testentscheid mit dem p-Wert.
+t.test(...)
+
+```{R}
+werte <- c(71, 69, 67, 68, 73, 72, 71, 71, 68, 72, 69, 72)
+H0 <- 70
+σ <- 1.5
+n <- length(werte)
+
+
+signifikanzniveau <- 0.05
+alpha <- 0.25
+
+# Verwerfungsbereich unten:
+qt(p = signifikanzniveau, mean = H0)
+# K = (−∞, 69.29)
+
+# Testentscheid:
+durchschnitt <- mean(werte) # 70.25
+# 70.25 ∉ K -> H0 beibehalten
+
+t.test(werte, mu = H0, alternative = "less")
+# p-Wert = 0.67 > 0.05 -> H0 beibehalten
+```
+
+
+b) Was ändert sich verglichen zur Aufgabe 9.1?
+
+- pWert ist kleiner (Von 0.72 auf 0.67)
+
+Dies liegt daran, dass mit der unbekannten Standardabweichung für den t-Test
+eine zusätzliche Unsicherheit dazu kommt.

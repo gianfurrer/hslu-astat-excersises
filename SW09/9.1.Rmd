@@ -1,0 +1,38 @@
+# Aufgabe 9.1
+
+Ein Weinhändler behauptet, dass die von ihm gefüllten Weinflaschen 70 Zentiliter enthalten.
+Ein skeptischer Konsument vermutet aber, dass der Weinhändler zu wenig Wein abfüllt und will diese Behauptung überprüfen.
+Deshalb kauft er 12 Weinflaschen und misst ihren Inhalt. Er findet:
+
+71, 69, 67, 68, 73, 72, 71, 71, 68, 72, 69, 72 (in Zentiliter)
+
+Nehmen Sie zunächst an, dass die Standardabweichung der Abfüllung im Voraus bekannt ist.
+Sie beträgt σ = 1.5 Zentiliter. Da die Standardabweichung der Messungen bekannt ist, können wir einen z-Test durchführen.
+Führen Sie den (einseitigen; in welche Richtung?) Test auf dem 5 %- Signifikanzniveau durch.
+Geben Sie die Modellannahmen, H0, HA, den Verwerfungsbereich, den Wert der Teststatistik und das
+Testergebnis explizit an. Formulieren Sie in einem Satz die Schlussfolgerung für den kritischen Konsumenten.
+
+**Resultat**: Einseitiger Test nach unten
+- H0: 70
+- HA: < 70
+```{R}
+werte <- c(71, 69, 67, 68, 73, 72, 71, 71, 68, 72, 69, 72)
+H0 <- 70
+σ <- 1.5
+n <- length(werte)
+
+
+signifikanzniveau <- 0.05
+alpha <- 0.25
+
+# Verwerfungsbereich unten:
+qnorm(p = signifikanzniveau, mean = H0, sd = σ / sqrt(n))
+# K = (−∞, 69.29)
+
+# Testentscheid:
+durchschnitt <- mean(werte) # 70.25
+# 70.25 ∉ K -> H0 beibehalten
+
+pnorm(q = durchschnitt, mean = H0, sd = σ / sqrt(n))
+```
+
