@@ -1,0 +1,22 @@
+# Aufgabe 8.2
+
+Ein Zigarettenhersteller gibt an, dass der Nikotingehalt in einer Zigarette durchschnittlich 2.2 mg mit Standardabweichung 0.3 mg hat. Bei einer Stichprobe von 100 zufällig
+ausgewählten Zigaretten ist das Stichprobenmittel allerdings 3.1 mg.
+Wie hoch ist die Wahrscheinlichkeit, dass das Stichprobenmittel einen Wert von 3.1 mg
+oder mehr erreicht, wenn die Aussage des Zigarettenherstellers wahr ist?
+
+Interpretieren Sie dieses Resultat.
+
+```{r}
+mean <- 2.2
+sd_1 <- 0.3
+n <- 100
+
+sd_n <- sd_1^2 / n
+
+pnorm(3.1, mean, sd_n, lower.tail = FALSE)
+```
+
+**Resultat:** 0%
+
+Die Chance ist praktisch 0, somit ist die Wahrscheinlichkeit, dass die Aussage des Zigarettenherstellers wahr ist, ebenfalls praktisch 0.

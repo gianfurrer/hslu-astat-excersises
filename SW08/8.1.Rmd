@@ -1,0 +1,56 @@
+# Aufgabe 8.1
+
+Die Zeit, die ein Passagier an einem Flughafen Check-in Schalter verbringt ist eine
+Zufallsvariable mit Mittelwert 8.2 Minuten und Standardabweichung 6 Minuten. Wir
+beobachten zufällig 36 Passgiere.
+
+```{r}
+mean <- 8.2
+sd_1 <- 6
+n <- 36
+sd_n <- sd_1^2 / n
+```
+
+## a)
+Berechnen Sie die Wahrscheinlichkeit, 
+dass die durchschnittliche Wartezeit dieser Passagiere weniger als 10 Minuten beträgt.
+
+```{r}
+pnorm(10, mean, sd_n)
+```
+
+Resultat: 96.4%
+
+## b)
+Berechnen Sie die Wahrscheinlichkeit,
+dass die durchschnittliche Wartezeit dieser Passagiere zwischen 5 und 10 Minuten beträgt.
+
+```{r}
+pnorm(10, mean, sd_n) - pnorm(5, mean, sd_n)
+```
+
+Resultat: 96.3%
+
+## c)
+Berechnen Sie die Wahrscheinlichkeit,
+dass die durchschnittliche Wartezeit dieser Passagiere mehr als 20 Minuten beträgt.
+
+```{r}
+pnorm(20, mean, sd_n, lower.tail = FALSE)
+```
+
+Resultat: 0%
+
+## d)
+Alle haben wohl schon die Erfahrung gemacht,
+dass man länger beim Check-ingewartet hat. Warum ist die Wahrscheinlichkeit von c) dann so klein?
+
+**Resultat**: Es handlet sich um die Wahrscheinlichkeit von 36 zufällig ausgewählten Passagieren.
+Dies bedeutet nicht, dass die Wahrscheinlichkeit für einen einzelnen Passagier so klein ist.
+
+
+## e)
+Gilt hier die i.i.d.-Annahme überhaupt?
+
+**Resultat:** Nicht unbedingt, die Wartezeiten am Check-in Schalter ist stark abhängig von der Tageszeit,
+vom Flughafen und von der Fluggesellschaft.

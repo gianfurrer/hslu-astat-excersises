@@ -1,0 +1,40 @@
+# Aufgabe 8.3
+
+Ein Dozent weiss aus Erfahrung, dass bei einer Prüfung die Punktezahlen
+durchschnittlich bei 77 Punkte mit einer Standardabweichung von 15 Punkten liegen. In
+diesem Semester unterrichtet der Dozent zwei Kurse; der eine hat 25, der andere 64
+TeilnehmerInnen.
+
+```{r}
+mean <- 77
+sd <- 15
+n1 <- 25
+n2 <- 64
+
+sd_n1 <- sqrt(sd^2 / n1)
+sd_n2 <- sqrt(sd^2 / n2)
+```
+
+# a) 
+
+Wie gross ist näherungsweise die Wahrscheinlichkeit, dass das durchschnittliche Prüfungsergebnis im dem Kurs mit 25 TeilnehmerInnen zwischen 72 und
+82 Punkten liegt?
+
+```{r}
+pnorm(82, mean, sd_n1) - pnorm(72, mean, sd_n1)
+```
+
+**Resultat:** 90.44%
+
+# b)
+
+Wiederholen Sie die Rechnung aus Teil a) für den Kurs mit 64 TeilnehmerInnen.
+Vergleichen Sie die beiden Werte und erklären Sie den Unterschied.
+
+```{r}
+pnorm(82, mean, sd_n2) - pnorm(72, mean, sd_n2)
+```
+
+**Resultat:** 99.23%
+
+Man sieht, dass bei einer groesseren Stichprobe die Abweichung kleiner wird.
