@@ -1,0 +1,31 @@
+# Aufgabe 10.8
+Betrachten Sie einen einseitigen t-Test von H0 : µ = 0 gegen HA : µ > 0 zum Niveau 0.05.
+Obwohl die beobachteten n Datenpunkte einen empirischen Mittelwert grösser Null
+haben, ergeben die Berechnungen, dass die Nullhypothese nicht verworfen wird.
+Entscheiden Sie, ob folgende Aussagen wahr oder falsch sind.
+Machen Sie ein vernünftige Skizze, wo Sie die relevanten Grössen einzeichnen.
+
+a) Man verwirft H0 für kein Niveau α < 0.05.
+
+Richtig, je kleiner das Niveau wird, desto eher wird die H0 nicht verworfen.
+
+b) Es gibt ein Niveau α < 1, bei dem man H0 verwirft.
+
+Richtig, je grösser das Niveau, desto eher wird die H0 verworfen.
+
+c) Der p-Wert ist strikt kleiner als 0.5
+
+Falsch, damit die Nullhypothese nicht verworfen wird, muss der p-Wert strikt grösser als 0.5 sein.
+
+Loesung sagt Richtig??????
+
+d) Führt man statt eines einseitigen einen zweiseitigen Test zum Niveau 0.05 durch, verwirft man H0 nicht.
+
+Richtig, bei einem zweiseitigen Test wird der Verwerfungsbereich auf der rechten Seite halbiert.
+Somit wird H0 immernoch nicht verworfen.
+
+e) Wenn man die Daten immer öfter kopiert
+(d. h., man betrachtet jeden Datenpunkt k-Mal, so dass man insgesamt k · n Datenpunkte erhält),
+verwirft man H0 für ein grosses k beim Niveau 0.05.
+
+Richtig, mit mehr Daten wird der Verwerfungsbereich kleiner und somit die Chance grösser, dass die Nullhypothese verworfen wird.

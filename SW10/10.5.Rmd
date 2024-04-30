@@ -1,0 +1,68 @@
+# Aufgabe 10.5
+
+Im Jahr 2013 wurden im Rahmen einer internationalen Zusammenarbeit unter der Leitung der EAWAG in Dübendorf Konzentrationen
+von illegalen Substanzen im Abwasser von 42 europäischen Städten während einer Woche untersucht
+
+Dabei wurden an 7 aufeinanderfolgenden Tagen (6.-12. März) neben anderen Substanzen die medianen Konzentrationen von Ecstasy (MDMA) im Abwasser gemessenen.
+Aufgrund dieser Studie war eine Aussage einer vielgelesenen Schweizer Gratiszeitung, dass in Zürich viel mehr Drogen konsumiert werden als anderswo.
+In der nachfolgenden Tabellle sind für die Städte Zürich und Basel die an den untersuchten Tagen ausgeschiedenen Mengen MDMA augeführt -
+die Werte finden Sie in der Datei mdma.txt im Verzeichnis Daten auf dem Desktop.
+Die Angaben sind in mg pro 1000 Einwohner pro Tag.
+Nehmen Sie an, dass die täglichen Differenzen Di zwischen den pro tausend Einwohner ausgeschiedenen Mengen von
+MDMA im Abwasser von Zürich und Basel unabhängig voneinander normalverteilt mit Erwartungswert µD und Standardabweichung σD sind.
+
+Wochentage Mi Do Fr Sa So Mo Di
+Zürich 16.3 12.7 14.0 53.3 117 62.6 27.6
+Basel 10.4 8.91 11.7 29.9 46.3 25.0 29.4
+
+a) Schätzen Sie aus den Daten den Mittelwert und die Standardabweichung der Differenzen, d.h., µbD und bσD.
+
+```{R}
+zurich <- c(16.3, 12.7, 14.0, 53.3, 117, 62.6, 27.6)
+basel <- c(10.4, 8.91, 11.7, 29.9, 46.3, 25.0, 29.4)
+d <- zurich - basel
+mean(d)
+sd(d)
+```
+
+Differenz: 20.27
+Standardabweichung: 26.27
+
+b) Handelt es sich um gepaarte oder ungepaarte Stichproben? Begründen Sie Ihre Antwort.
+
+Gepaarte Stichproben: Die Stichproben können anhand der Wochentagen aufeinaner zugeordnet werden.
+
+c) Formulieren Sie die Nullhypothese und die Alternativhypothese, wenn Sie die Aussage der besagten Gratiszeitung überprüfen möchten.
+
+Nullhypothese: Zürich konsumiert gleiche viele Drogen wie Basel
+Alternativhypothese: Zürich konsumiert mehr Drogen wie Basel
+
+d) Führen Sie einen statistischen Test mit Hilfe von R auf dem Signifikanzniveau 5 % durch, unter der Annahme, dass die Daten normalverteilt sind.
+Wie lautet die Teststatistik und wie ist diese unter der Nullhypothese verteilt?
+
+```{R}
+t.test(zurich, basel, alternative = "greater", paired = T)
+```
+
+p-value: 0.04364 < 0.05 --> Nullhypothese verwefen
+
+Resultat: Zürich konsumiert mehr Drogen wie Basel.
+
+e) Geben Sie das (einseitiges) 95 %-Vertrauensintervall für die Differenzen Di an (mit Hilfe von R). Wie interpretieren Sie dieses Vertrauensintervall?
+
+```{R}
+t.test(d, alternative = "greater", conf.level = 0.95)
+```
+
+Vertrauensintervall: Mit 95% wahrscheinlichkeit liegt die Differenz zwischen Zurich und Basel zwischen dem Intervall: [0.974, ∞].
+Dies bedeutet, dass die Differenz 0 nicht im Vertrauensintervall liegt, weshalb die Nullhypothese verworfen wird.
+
+f) Führen Sie nun einen statistischen Test mit Hilfe von R auf dem Signifikanzniveau 5 % durch, unter der Annahme, dass die Daten nicht normalverteilt sind.
+
+```{R}
+wilcox.test(zurich, basel, alternative = "greater", paired = T)
+```
+
+p-value: 0.01563 < 0.05 --> Nullhypothese verwerfen
+
+Auch wenn die Daten nicht normalverteilt wird, muss die Nullhypothese verworfen werden.

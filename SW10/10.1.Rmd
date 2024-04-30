@@ -1,0 +1,100 @@
+# Aufgabe 10.1
+Untenstehend finden Sie mehrere Beispiele für Vergleiche von 2 Stichproben.
+Beantworten Sie für jedes Beispiel kurz die folgenden Fragen:
+• Handelt es sich um gepaarte oder um ungepaarte Stichproben? Begründen Sie!
+• Ist der Test einseitig oder zweiseitig durchzuführen? Begründen Sie!
+• Wie lautet die Nullhypothese in Worten?
+• Wie lautet die Alternativhypothese in Worten?
+
+## a)
+In einem Experiment sollte der Effekt von Zigarettenrauchen auf Blutplättchenanhäufungen untersucht werden.
+Dazu wurden 11 Probanden vor und nach dem Rauchen einer Zigarette Blutproben entnommen,
+und es wurde gemessen, wie stark sich die Blutplättchen anhäuften.
+Es interessiert, ob sich Blutplättchen durch das Rauchen vermehrt anhäufen.
+
+
+**Antwort:**
+
+• Handelt es sich um gepaarte oder um ungepaarte Stichproben? Begründen Sie!
+
+Gepaarte Stichproben, da die Blutproben von der gleichen Probanden vor und nach dem Rauchen entnommen wurden.
+
+• Ist der Test einseitig oder zweiseitig durchzuführen? Begründen Sie!
+
+Einseitig, da es nur interessiert, ob sich die Blutplaettchen durch das Rauchen vermehrt anhaeufen.
+
+• Wie lautet die Nullhypothese in Worten?
+
+Die Blutplaettchen haufen sich durch das Rauchen nicht vermehrt an.
+
+• Wie lautet die Alternativhypothese in Worten?
+
+Die Blutplaettchen häufen sich durch das Rauchen vermehrt an.
+
+## b)
+Die nächsten Daten sind aus einer Studie von Charles Darwin über die Fremdund Selbstbefruchtung.
+15 Paare von Setzlingen mit demselben Alter, je einer durch Selbst- und einer durch Fremdbefruchtung produziert,
+wurden gezüchtet. Beide Teile je eines Paares hatten nahezu gleiche Bedingungen. Das Ziel bestand darin zu sehen,
+ob die fremdbefruchteten Pflanzen mehr Lebenskraft besitzen als die selbstbefruchteten (d.h., ob sie grösser werden).
+Es wurden die Höhen jeder Pflanze nach einer fixen Zeitspanne gemessen.
+
+**Antwort:**
+
+• Handelt es sich um gepaarte oder um ungepaarte Stichproben? Begründen Sie!
+
+Gepaarte Stichprobe: Es handelt sich um Paaren von Setzlingen. Das bedeutet, dass jeder Selbstbefruchtete Setzling
+ein "passender" Fremdbefruchteter Setzling hat.
+
+• Ist der Test einseitig oder zweiseitig durchzuführen? Begründen Sie!
+
+Einseitig: Es interessiert nur, ob die fremdbefruchteten Pflanzen grösser werden.
+
+• Wie lautet die Nullhypothese in Worten?
+
+Die fremdbefruchteten Pflanzen sind gleich gross wie die selbstbefruchteten Pflanzen.
+
+• Wie lautet die Alternativhypothese in Worten?
+
+Die fremdbefruchteten Pflanzen sind grösser als die selbstbefruchteten Pflanzen.
+
+## c)
+Beeinflusst der Kalziumgehalt in der Nahrung den systolischen Blutdruck?
+Zur Überprüfung dieser Frage wurde einer Versuchsgruppe von 10 Männern während 12 Wochen ein Kalziumzusatz verabreicht.
+Einer Kontrollgruppe von 11 Männern gab man ein Placebopräparat.
+
+• Handelt es sich um gepaarte oder um ungepaarte Stichproben? Begründen Sie!
+
+Ungepaarte Stichproben: Es handelt sich nicht um die gleichen Probanden.
+
+• Ist der Test einseitig oder zweiseitig durchzuführen? Begründen Sie!
+
+Zweiseitig: Wir wollen nur wissen, ob das Kalzuim einen einfluss hat. Egal ob oben oder unten.
+
+• Wie lautet die Nullhypothese in Worten?
+
+Der Blutdruck wird nicht beeinflusst.
+
+• Wie lautet die Alternativhypothese in Worten?
+
+Der Blutdruck wird durch den Kalziumgehalt beeinflusst.
+
+## d)
+In einem Experiment wurde untersucht, ob Mäuse zwei Formen von Eisen (Fe2+ und Fe3+) unterschiedlich gut aufnehmen.
+Dazu wurden 36 Mäuse in zwei Gruppen zu je 18 unterteilt und die eine Gruppe mit Fe2+ und die andere mit Fe3+ „gefüttert“.
+Da das Eisen radioaktiv markiert war, konnte sowohl die Anfangskonzentration wie auch die Konzentration einige Zeit später gemessen
+
+• Handelt es sich um gepaarte oder um ungepaarte Stichproben? Begründen Sie!
+
+Gepaarte Stichproben: Es wurden von den gleichen Mäusen Stichproben vor und nach der Konzentration gemessen.
+
+• Ist der Test einseitig oder zweiseitig durchzuführen? Begründen Sie!
+
+Zweiseitig: Es interessiert nur, ob die Eisen unterschiedlich gut aufgenommen werden. Egal ob schlechter oder besser.
+
+• Wie lautet die Nullhypothese in Worten?
+
+Die Eisen werden gleich gut aufgenommen.
+
+• Wie lautet die Alternativhypothese in Worten?
+
+Die Eisen werden nicht gleich gut aufgenommen.

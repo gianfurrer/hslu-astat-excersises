@@ -1,0 +1,54 @@
+# Aufgabe 10.4
+
+Ein U.S. Magazin, Consumer Reports, führte eine Untersuchung des Kalorien- und Salzgehaltes von verschiedenen Hotdog-Marken durch.
+Es gab drei verschiedene Typen von Hotdogs: Rind, „Fleisch” (Rind, Schwein, Geflügel gemischt) und Geflügel.
+Die Resultate unten führen den Kaloriengehalt verschiedener Marken von Rind- und Geflügel-Hotdogs auf.
+
+Rinds-Hotdog
+186, 181, 176, 149, 184, 190, 158, 139, 175, 148, 152, 111, 141, 153, 190, 157, 131, 149, 135, 132
+
+Geflügel-Hotdog:
+129, 132, 102, 106, 94, 102, 87, 99, 170, 113, 135, 142, 86, 143, 152, 146, 144
+
+Haben die beiden Hotdog-Arten verschiedenen Kaloriengehalt?
+
+a) Handelt es sich um einen gepaarten oder ungepaarten Test? Begründen Sie Ihre Antwort.
+
+Ungepaarte: Die Stichproben sind unterschiedlich gross und haben keinen Zusammenhang.
+
+b) Handelt es sich um einen ein- oder zweiseitigen Test? Begründen Sie Ihre Antwort.
+
+Zweiseitig: Es interessiert nur, ob der Kaloriengehalt unterschiedlich ist, egal ob tiefer oder höher.
+
+c) Formulieren Sie Null- und Alternativhypothese.
+
+Nullhypothese: Der Kaloriengehalt ist gleich.
+Alternativhypothese: Der Kaloriengehalt ist nicht gleich.
+
+d) Berechnen Sie die Mittelwerte der beiden Testreihen. Welche Vermutung haben Sie?
+
+```{R}
+rind <- c(186, 181, 176, 149, 184, 190, 158, 139, 175, 148, 152, 111, 141, 153, 190, 157, 131, 149, 135, 132)
+gefluegel <- c(129, 132, 102, 106, 94, 102, 87, 99, 170, 113, 135, 142, 86, 143, 152, 146, 144)
+mean(rind)
+mean(gefluegel)
+```
+
+Der Mittelwert von Rind scheint signifikant höher zu ein als der von Geflügel (156 >> 122).
+Somit ist meine Vermutung, dass der Kaloriengehalt nicht gleich ist.
+
+e) Welchen Test würden Sie hier wählen: t-Test oder Wilcoxontest? Begründen Sie Ihre Antwort.
+
+ Wilcoxontest: Wir wissen nicht, ob die Daten normalververteilt sind. Somit ist der Wilcoxontest zuverlässiger als der t-Test.
+
+f) Führen Sie den entsprechenden Test mit R durch. Interpretieren Sie p-Wert. Bei welcher Hotdog-Art ist der Kaloriengehalt grösser?
+
+```{R}
+wilcox.test(rind, gefluegel, alternative = "two.sided", mu = 0, paired = F)
+```
+
+p-Wert: 0.0004549 < 0.05 --> Nullhypothese verwefen.
+
+Der p-Wert ist signifikant kleiner als das Signifikantsniveau.
+
+Somit hat das Rind signifikant mehr Kalorien als das Geflügel. 

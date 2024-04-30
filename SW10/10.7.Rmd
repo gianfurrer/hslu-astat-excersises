@@ -1,0 +1,55 @@
+# Aufgabe 10.7
+
+Die Körpertemperatur von 10 Patienten wird zum Zeitpunkt der Verabreichung eines
+Medikaments (T1) und 2 Stunden später (T2) gemessen.
+
+Es soll geprüft werden, ob dieses Medikament eine fiebersenkende Wirkung hat.
+
+Patient-Nr. 1 2 3 4 5 6 7 8 9 10
+Temp. 1 in ◦C 39.1 39.3 38.9 40.6 39.5 38.4 38.6 39.0 38.6 39.2
+Temp. 2 in ◦C 38.1 38.3 38.8 37.8 38.2 37.3 37.6 37.8 37.4 38.1
+
+a) Handelt es sich um einen gepaarten oder ungepaarten Test? Begründen Sie Ihre Antwort.
+
+Gepaart: Die Stichproben haben einen zusammenhang.
+
+b) Handelt es sich um einen ein- oder zweiseitigen Test? Begründen Sie Ihre Antwort.
+
+Einseitig: Es interessiert uns nur, ob das Medikament eine fiebersenkende Wirking hat.
+
+c) Formulieren Sie Null- und Alternativhypothese.
+
+Nullhypothese: μ1 == μ2 (Die Temparatur 1 ist gleich wie die Temparatur 2)
+Alternativhypothese: μ1 > μ2 (Die Temparatur 1 ist grösser wie die Temparatur 2)
+
+d) Wir nehmen an, die Daten seien normalverteilt. Welchen Test wählen Sie? Führen Sie den Test mit R auf Signifikanzniveau 5 % durch.
+
+t-Test:
+```{R}
+temp1 <- c(39.1, 39.3, 38.9, 40.6, 39.5, 38.4, 38.6, 39.0, 38.6, 39.2)
+temp2 <- c(38.1, 38.3, 38.8, 37.8, 38.2, 37.3, 37.6, 37.8, 37.4, 38.1)
+t.test(temp1, temp2, alternative = "greater", paired = T)
+```
+
+p-value: 0.0001554 < 0.05 --> Nullhypothese verwefern
+
+Somit hat das Medikament eine fiebersenkende Wirkung.
+
+e) Wenn wir nicht davon ausgehen können, dass die Daten normalverteilt sind, welchen Test wählen Sie?
+Führen Sie diesen auf Signifikanzniveau 5 % durch.
+
+Wilcoxon:
+
+```{R}
+wilcox.test(temp1, temp2, alternative = "greater", paired = T)
+```
+
+p-value: 0.0029 < 0.05 --> Nullhypothese verwerfen
+
+Somit hat das Medikament eine fiebersenkende Wirkung.
+
+
+f) Erklären Sie den Unterschied der p-Werte in Teilaufgaben d) und e).
+
+Der Wilcoxontest hat zusätzliche Unsicherheit, das er nicht weiss, ob die Daten normalverteilt sind.
+Dadurch ist der p-Wert grösser und die Nullhypothese wird weniger stark verworfen.

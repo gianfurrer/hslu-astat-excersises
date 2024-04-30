@@ -1,0 +1,101 @@
+# Aufgabe 10.6
+Wir haben aus eigener Erfahrung das Gefühl, dass bei Ehepaaren der Mann eher älter ist als die Frau.
+Nun wollen wir statistisch untersuchen, ob dem so ist.
+Im Datensatz mannfrau.csv sind die Werte von Körpergrösse und Alter bei Mann und Frau von 170 britischen Ehepaaren aufgeführt.
+Die Körpergrösse ist in cm und das Alter in Jahren angegeben.
+
+Hinweis:
+```{R}
+mf <- read.csv("SW10/mannfrau.csv")
+diff <- mf$alter.mann - mf$alter.frau
+boxplot(diff, col = "orange")
+```
+
+Bei rund 50 % der Ehepaare liegt der Altersunterschied zwischen 0 und etwa 5 Jahren.
+Bei rund 25 % der Ehepaaren ist die Ehefrau älter als der Ehemann.
+Unsere Vermutung scheint zu stimmen, aber die Frage ist dann noch,
+ob der Unterschied statistisch signifikant ist.
+
+## a)
+Wir wollen unsere Vermutung, dass die Männer bei Ehepaaren eher älter sind als die Frauen,
+ebenfalls mit einem Hypothesentest untersuchen.
+
+i) Wählen Sie einen gepaarten oder ungepaarten Test?
+
+Gepaarter Test: Die Stichproben können jeweils mit Ehemann und Ehefrau zugeordnet werden.
+
+ii) Machen Sie einen ein- oder zweiseitigen Test?
+
+Einseitig: Wir vermuten, dass der Mann älter ist als die Frau.
+
+iii) Wir gehen von Normalverteilung der Daten aus. Führen Sie diesen Hypothesentest auf Signifikanzniveau von 5 % durch.
+Formulieren Sie die Null- und Alternativhypothese und führen Sie den Test
+mit Testentscheid auf einem Signifikanzniveau von 5 % durch.
+Führen Sie den Testentscheid noch mit dem Vertrauensintervall durch.
+
+Nullhypothese: Mann und Frau sind gleich alt.
+Alternativhypothese: Mann und Frau sind nicht gleich alt.
+
+**Testfall mit T-Test**
+
+```{R}
+t.test(mf$alter.mann, mf$alter.frau, alternative = "two.sided", paired = T)
+```
+
+p-value: 2.474e-11 < 0.05 --> Nullhypothese verwerfen
+
+**Testfalls mit Vertrauensintervall**
+
+```{R}
+t.test(diff, alternative = "two.sided", conf.level = 0.95)
+```
+
+Vertrauensintervall: [1.618, 2.852]
+
+Da die Differenz 0 nicht im Vertrauensintervall ist, muss die Nullhypothese verworfen werden.
+
+iv) Wenn Sie nicht von Normalverteilung ausgehen, welchen Test wählen Sie?
+Führen Sie diesen Test durch.
+
+**Wilcoxon Test**
+
+```{R}
+wilcox.test(mf$alter.mann, mf$alter.frau, alternative = "two.sided", paired = F)
+```
+
+p-value: 3.977e-12 < 0.05 --> Nullhypothese verwerfen
+
+## b)
+Wir untersuchen noch die Grössenunterschiede zwischen Frauen und Männer.
+Im Allgemeinen sind Männer grösser als Frauen.
+In England sind gemäss Wikipedia die Männer durchschnittlich 13 cm grösser als die Frauen.
+
+i) Welcher Test ist hier angebracht (ein- oder zweisseitig, gepaart oder ungepaart)?
+
+Zweiseitig: Wir wissen nicht, in welche richtung die Abweichung geht
+Ungepaart: Es handelt sich um Durchschnittsgrössen 
+
+ii) Formulieren Sie die Null- und Alternativhypothese.
+
+Nullhypothese: uF = uM - 13
+Alternativhypothese: uF != uM - 13
+
+iii) Wird die Aussage durch unseren Datensatz auf einem Signifikanzniveau von 5 % statistisch signifikant widerlegt?
+Führen Sie den Test mit Testentscheid durch.
+Wir nehmen an, dass die Körpergrössen normalverteilt sind.
+Führen Sie den Testentscheid noch mit dem Vetrauensintervall durch.
+
+
+```{R}
+t.test(mf$groesse.mann - 13, mf$groesse.frau, alternative = "two.sided", paired = F)
+```
+
+p-value: 0.53 > 0.5 --> Nullhypothese beibehalten
+
+Die Männer sind durchschnittlich 13 cm grösser als Frauen.
+
+**Vertrauensintervall**
+
+Vertrauensintervall: [-1.812, 0.93]
+
+Die Differenz 0 liegt im Vertrauensintervall, somit behalten wir die Nullhypothese bei.
