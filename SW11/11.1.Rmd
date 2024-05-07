@@ -1,0 +1,90 @@
+# Aufgabe 11.1
+In dieser Aufgabe verwenden wir den Datensatz Auto, der in der Bibliothek ISLR enthalten ist. 
+
+```{R}
+library(ISLR)
+```
+
+Falls eine Fehlermeldung kommt, muss die Bibliothek zuerst installiert werden (dies muss nur ein einziges Mal gemacht werden:
+```{R}
+install.packages("ISLR")
+```
+
+## a)
+Untersuchen Sie den Datensatz mit `head(Auto)` und `?Auto`.
+
+```{R}
+head(Auto)
+?Auto
+```
+
+## b)
+Stellen Sie das Modell für eine einfache lineare Regression mit `mpg` als Zielvariable und `horsepower` als Prädiktor auf.
+
+```{R}
+mpg <- B0 + B1 * horsepower
+```
+
+## c) 
+Verwenden Sie den lm()-Befehl um diese Regression durchzuführen.
+
+```{R}
+lm(Auto$mpg ~ Auto$horsepower)
+```
+
+Verwenden Sie den summary()-Befehl um die Resultate auszudrucken. Kommentieren Sie diesen:
+
+```{R}
+summary(lm(Auto$mpg ~ Auto$horsepower))
+```
+
+### i)
+Gibt es einen Zusammenhang zwischen der Zielgrösse und dem Prädiktor?
+
+Ja, da der p-Wert von Horsepower mit 2e-16 bei weitem kleiner al 0.05 ist, wir die Nullhypothese verworfen
+und es muss angenommen werdem dass sie einen Zusammenhang haben.
+Das heisst, der MPG hängt von den Horsepower ab.
+
+### ii)
+Wie interpretieren Sie die Koeffizienten für (intercept) und horsepower?
+Ist der Zusammenhang positiv oder negativ?
+
+Mit 0 Horsepower ist MPG bei 39.94.
+
+Mit jeder zusätzlicher Horsepower sinkt die MPG um -0.15.
+
+Der Zusammenhang ist negativ. Je grösser Horsepower wird, desto kleiner wird die MPG.
+
+### iii) Bestimmen Sie die Vertrauensintervalle (mit confint()) und interpretieren Sie diese?
+
+```{R}
+confint(lm(Auto$mpg ~ Auto$horsepower), level = 0.95)
+```
+
+Zu 95%; Ohne Horsepower: MPG zwischen 38.53 und 41.35
+
+Für 100 zusätzliche Horsepower: MPG duchschnittlich zwischen 13.52 und 17.05 kleiner
+
+### iv) Interpretieren Sie den R2-Wert.
+
+```{R}
+summary(lm(Auto$mpg ~ Auto$horsepower))$r.squared
+```
+
+Mit einem R2 wert von 0.6 beschreibt die Regression die Variablilität der Zielvariable zu 60% passt.
+
+Dies ist kein schlechter Wert, bedeutet jedoch, dass noch andere Faktoren einen Einfluss auf den MPG haben.
+
+## d)
+Plotten Sie die Zielvariable und den Prädiktor mit der Regressionsgeraden (abline).
+Wie interpretieren Sie diesen Plot im Vergleich zum summary()-Output.
+
+```{R}
+plot(Auto$mpg ~ Auto$horsepower, col = "darkcyan", xlab = "Horsepower", ylab = "MPG")
+abline(lm(Auto$mpg ~ Auto$horsepower), col= "blue")
+```
+
+Man sieht in dem Plot, dass die Linie bei x=0 ungefähr 38 MPG aufweist, was mit der Summary übereinstimmt.
+Ebenfalls ist ersichtlich, dass die MPG abnimmt, desto grösser die Horsepower wird. 
+
+Jedoch ist die Punktwolke nicht linear. Dies deutet auf einen schwachen R2 Wert

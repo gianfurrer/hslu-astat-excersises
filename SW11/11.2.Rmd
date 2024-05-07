@@ -1,0 +1,108 @@
+# Aufgabe 11.2
+Die `MASS`-Bibliothek enthält den `Boston`-Datensatz, der `medv` (median house value) für 506 Stadtviertel um Boston herum erfasst.
+Wir werden versuchen, `medv` mit 13 Prädiktoren wie
+- `rm` (durchschnittliche Anzahl von Zimmern pro Haus) ,
+- `age` (Durchschnittsalter der Häuser)
+- `lstat` (Prozent der Haushalte mit niedrigem sozioökonomischen Status) vorherzusagen .
+
+## a)
+Um mehr über den Datensatz zu erfahren, können wir `?Boston` oder `help(Boston)` eingeben.
+Laden Sie zuerst die MASS-Bibliothek.
+
+```{R}
+library(MASS)
+?Boston
+```
+
+## b) Welche Spaltennamen sind verfügbar?
+
+```{R}
+colnames(Boston)
+```
+
+## c) Mit dem attach(...)-Befehl können wir R die Spaltennamen des Datensatzes Boston erkennen lassen.
+
+```{R}
+attach(Boston)
+```
+
+## d)
+Wir werden damit beginnen, die lm()-Funktion zu verwenden,
+um ein einfaches lineares Regressionsmodell mit medv als Antwort und lstat als Prädiktor anzupassen.
+
+### i) Definieren Sie das einfache Regressionsmodell unter Verwendung der beiden obigen Variablen.
+
+```{R}
+lm(medv ~ lstat)
+```
+
+### ii)
+Die grundlegende Syntax lautet `lm(y~x,data)` Dabei ist `y` die Antwort,
+`x` der Prädiktor und Daten der Datensatz, in dem diese beiden Variablen
+enthalten sind.
+```{R}
+lm.fit <- lm(medv ~ lstat)
+summary(lm.fit)
+```
+
+## e)
+Wir können die Funktion names(...) verwenden,
+um herauszufinden, welche anderen Informationen in lm.fit gespeichert sind.
+
+```{R}
+names(lm.fit)
+lm.fit$coefficients
+```
+
+## f)
+Obwohl wir diese Grössen über den Namen zugreifen können (beispielsweise `lm.fit$coefficients`),
+ist es sicherer, Funktionen wie `coef(...)` zu verwenden, um auf sie zuzugreifen.
+Interpretieren Sie diese Werte und die entsprechenden p–Werte in der obigen Zusammenfassung.
+
+```{R}
+coef(lm.fit)
+# medv <- 34.554 -0.95 * lstat
+```
+
+Koeffizienten:
+- (Intercept): 34.554 -  Gibt an, dass wenn der Prozent der Haushalte mit niedrigem sozioökonomischen Status (lstat) 0 ist,
+               der durchschnitte Hauswert bei 34554$ liegt.
+- lstat: -0.95 - Gibt an, dass mit jedem zusätzlichen Prozent bei dem lstat der durchschnitte Hauswert um 950$ sinkt. 
+
+p-Werte:
+2.2e-16 liegt bei weitem unter 0.05, weshalb von einem starken zusammenhang zwischen `lstat` und `medv` ausgegegangen werden muss.
+
+## g)
+Um ein Vertrauensintervall für die Koeffizientenschätzungen zu erhalten, können wir den Befehl confint(...) verwenden.
+Geben Sie eine Interpretation dieser Werte an
+
+```{R}
+confint(lm.fit, level = 0.95)
+```
+
+- Mit einer `lstat` von 0 Prozent liegt der `medv` zu 95% zwischen 33.44 und 35.66.
+- Mit jedem zusätzlichen Prozent bei `lstat` sinkt der `medv` zwischen 880 und 1030 Dollar.
+
+## h)
+Wir werden nun medv und lstat zusammen mit der Regression der kleinsten Quadrate auftragen Zeile
+mit den Funktionen plot(...) und abline() (siehe Übung 3).
+Verwenden Sie lty = ..., pch = ... und col = ..., um Graphik schöner aussehen zu lassen.
+
+```{R}
+plot(lstat, medv, col = "blue", pch=20, lty = 2)
+abline(lm.fit, col = "orange", lwd = 3)
+```
+
+## i) Interpretieren Sie den Wert R2 in der summary–Ausgabe oben.
+
+Der R-squared Wert ligt bei 0.5432 (54.32%).
+
+Somit werden run 54% der Varianz durch das Modell (Regressionsgrade) erklärt.
+
+```{R}
+cor(lstat, medv)
+summary(lm.fit)$r.squared
+var(medv)
+```
+
+--> die `lstat` nur einen mittelstarken Einfluss auf den `medv`.
