@@ -1,0 +1,101 @@
+# Aufgabe 12.1
+
+Wir untersuchen den Datensatz Boston aus dem letzten Übungsblatt weiter.
+Um ein multiples lineares Regressionsmodell unter Verwendung der kleinsten Quadrate anzupassen, 
+verwenden wir wieder die Funktion `lm()`. Die Syntax `lm(y ~ x1 + x2 + x3)` wird verwendet,
+um eine Modell mit drei Prädiktoren, x1 , x2 und x3.
+Die Funktion summary() jetzt gibt die Regressionskoeffizienten für alle Prädiktoren
+aus.
+
+```{R}
+library(MASS)
+?Boston
+head(Boston)
+```
+
+## a)
+Passen Sie ein multiples lineares Regressionsmodell mit der Zielvariable medv und den Prädiktoren lstat und age an.
+Definieren Sie das Modell und interpretieren Sie alle Werte in der Ausgabe
+summary(), die wir besprochen haben (Koeffizienten, seine p-Werte, R2-Wert, p-Wert der F-Statistik).
+- age: proportion of owner-occupied units built prior to 1940. 
+
+```{R}
+attach(Boston)
+# medv = β0 + β1 · lstat + β2 · age
+summary(lm(medv ~ lstat + age))
+```
+
+Koeffizienten:
+- In Vierteln ohne Bevölkerung mit niedrigem Status und keine vor 1940 gebauten Einheiten beträgt der durschnittliche Hauswert 33'223$.
+- Pro 10% mehr Bevölkerung mit niedrigem Status sinkt der durschnittliche Hauswert um 10'320$.
+- Pro 10% mehr Häuser mit Baujahr vor 1940 steigt der duchschnittliche Hauswert um 345$.
+
+p-Werte:
+- Alle p-Werte sind unterhalb des Signifikantsniveaus von 5%, somit haben alle Inputs einen zusammenhang mit `medv`
+
+R2-Wert 0.5513:
+- Mit 55.13% durch die Inputs `lstat` und `age` wird die Varianz zur Hälfte durch das Modell erklärt.
+
+
+p-Wert des F-Wertes:
+- Mit 2.2E-16 liegt der p-Wert unter dem Signifikantsniveaus,
+  deswegen trägt mindestens einer der Inputs signifikant zum Modell bei.
+
+## b)
+Der Boston-Datensatz enthält 13 Variablen, und es wäre also umständlich all
+dies eingeben zu müssen, um eine Regression mit allen Prädiktoren. Stattdessen
+können wir die folgende Kurzhand `lm(medv ~., Daten = `Boston) verwenden.
+Interpretieren Sie in der summary() Ausgabe den Koeffizienten von age und
+den entsprechenden p-Wert, vergleichen Sie diesen mit der Ausgabe in a) und
+erklären Sie den Unterschied.
+
+```{R}
+summary(lm(medv ~., data = Boston))
+```
+
+Age hat nun einen nicht-signifikanten p-Wert von 0.95.
+Dies ist im Vergleich mit dem p-Wert von 0.00491 von zuvor deutlich anders.
+Grund dafür ist, dass nun andere Variablen in betracht gezogen werden, die viel signifikanter sind.
+`Age` hat sich im vorherigen Modell and der siginikanz von den nicht angegebenen Variablen bedient,
+wodurch es scheinte, dass `Age` einen grösseren Einfluss hat, was in Realität jedoch nicht der Fall.
+
+--> `Age` korreliert start mit anderen Variablen
+
+
+## c)
+Der Wert von R2 ist größer als der in a) berechnete Wert. Erläutern Sie.
+
+Durch die zusätzlichen Varaiblen steigt die Varianz des Modells.
+Dies bedeutet, dass mindestens eine der neuen Varaiblen einen siginikanten Einfluss auf das Modell hat.
+
+## d)
+Mit Hilfe der Funktion lm() ist es einfach, Interaktionsterme in ein lineares
+Modell aufzunehmen. Die Syntax lstat:black weist R an, einen Interaktionsterm zwischen lstat und black.
+Die Syntax lstat * age beinhaltet gleichzeitig lstat, age, und der Interaktions-Begriff lstat × age als Prädiktoren; es ist eine Abkürzung für lstat + age + lstat:age.
+Diskutieren Sie nochmals alle Werte in der summary() von lstat*age wie in a).
+
+```{R}
+summary(lm(medv ~ lstat * age, data = Boston))
+```
+
+Koeffizienten:
+- Bei Age=0 und lstat=0 beträgt der durchschnitte Hauswert 36'000$
+- Wenn `lstat` um ein Prozent steigt, sinkt der Hauswert um 1392$
+- Wenn `age` um ein Prozent steigt, sink der Hauswert um 0.72$. (nicht signifikanter Wert)
+- `lstat:age` weiss ich nicht
+
+p-Werte:
+- `lstat` ist mit 8.78-e16 signifikant
+- `age` ist mit fast 1 nicht signifikant
+- `lstat:age` ist mit 0.0252 signifikant --> es gibt einen zusammenhang zwischen age und lstat
+```{R}
+cor(Boston["lstat"], Boston["age"])
+# Zusammenhang ist 0.6 (60%), was recht gross ist.
+```
+
+R2-Wert:
+- 55% der Variation wird durch das Modell erklärt.
+
+p-Wert des F-wertes:
+- Mit 2.2e-16 ist nindestens eine der Variablen ist signifikant
+

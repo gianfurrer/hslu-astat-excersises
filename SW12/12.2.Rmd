@@ -1,0 +1,66 @@
+# Aufgabe 12.2
+Wir führen noch eine multiple lineare Regression für Auto aus der letzten Übung
+durch.
+
+```{R}
+library(ISLR)
+head(Auto)
+Auto.1 <- within(Auto, rm(name))
+head(Auto.1)
+?Auto
+```
+
+## a)
+Produzieren Sie mit pairs Streudiagramme, die alle Variablen des Datensatzes enthält.
+
+```{R}
+pairs(Auto.1, col = "darkseagreen")
+```
+
+## b)
+Berechnen Sie die Korrelationsmatrix zwischen den Variablen mit cor(). Dazu
+müssen wir zuerst die Variable name entfernen, da diese qualitativ ist und vor
+allem kaum einen Einfluss auf den Verbrauch hat.
+
+```{R}
+round(cor(Auto.1), 2)
+```
+Interpretieren Sie die Werte für horsepower und displacement mit den Streudiagrammen oben.
+
+Der Wert 0.90 gibt an, dass es eine Hohe korrelation zwischen horsepower und displacement gibt.
+Je höhrer horsepower, desto höher wird displacement.
+
+## c)
+Wir verwenden lm() um eine multiple Regression mit der Zielgrösse mpg und allen anderen Variablen (ausser name) als Prädiktoren durchzuführen.
+Verwenden Sie wieder Output des summary()-Befehls zu interpretieren.
+
+```{R}
+summary(lm(mpg ~ ., data = Auto.1))
+```
+
+### i)
+Gibt es einen Zusammenhang zwischen den Prädiktoren und der Zielvariable?
+Begründen Sie dies mit dem p-Wert zum F-Wert.
+
+Ja, der p-Wert zum F-Wert beträgt 2.2e-16. Somit hat mindestens ein Prädikator einen Zusammenhang mit der Zielvariable.
+
+
+### ii)
+Welche Prädiktoren scheinen statistisch signifikant einen Einfluss auf die Zielvariable zu haben?
+
+Year, Origin, Weight und displacement haben den grössten Einfluss.
+
+### iii)
+Was deutet der Koeffizient für year an?
+
+Mit jedem Jahr, dass ein Auto neuer ist, kommt es 0.75 MPG weiter.
+
+## d) Untersuchen das Modell aus c) noch auf Interaktionseffekte
+
+```{R}
+summary(lm(mpg ~ weight * year, data = Auto.1))
+```
+
+Der p-Wert von `weight:year` ist nahe bei 0, somit liegt eine Interaktion vor.
+
+Dies lässt sich damit erklären, das neuere Autos leichter werden.
