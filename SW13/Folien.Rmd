@@ -1,0 +1,75 @@
+# Folien SW13
+
+```{R}
+Credit <- read.csv("./SW13/Credit.csv")
+head(Credit)
+round(summary(lm(Balance ~ Gender == "Female", data=Credit))$coef, digits = 5)
+```
+
+```{R}
+head(Credit[, "Ethnicity"], n=20)
+summary(lm(Balance ~ Ethnicity, data=Credit))
+```
+
+```{R}
+summary(lm(Balance ~ Income + Student, data=Credit))
+summary(lm(Balance ~ Income * Student, data=Credit))
+```
+
+```{R}
+f.full <- lm(Balance ~ Income + Limit + Rating + Cards + Age +
+Education + Gender + Student + Married + Ethnicity, data = Credit)
+f.empty <- lm(Balance ~ NULL, data = Credit)
+add1(f.empty, scope = f.full)
+
+f.1 <- update(f.empty, . ~ . + Rating)
+add1(f.1, scope = f.full)
+
+f.2 <- update(f.1, . ~ . + Income)
+add1(f.2, scope = f.full)
+
+f.3 <- update(f.2, . ~ . + Student)
+add1(f.3, scope = f.full)
+
+f.4 <- update(f.3, . ~ . + Limit)
+add1(f.4, scope = f.full)
+
+f.5 <- update(f.4, . ~ . + Cards)
+add1(f.5, scope = f.full)
+
+f.6 <- update(f.5, . ~ . + Age)
+add1(f.6, scope = f.full)
+
+# not useful anymore
+
+f.7 <- update(f.6, . ~ . + Ethnicity)
+add1(f.7, scope = f.full)
+
+f.8 <- update(f.7, . ~ . + Gender)
+add1(f.8, scope = f.full)
+
+f.9 <- update(f.8, . ~ . + Married)
+add1(f.9, scope = f.full)
+
+f.10 <- update(f.9, . ~ . + Education)
+summary(f.10)
+
+```
+
+```{R}
+#install.packages("leaps")
+library(leaps)
+reg <- regsubsets(Balance ~ ., data=Credit, method = "forward", nvmax = 11)
+reg.sum <- summary(reg)
+
+reg.sum$which
+
+summary(lm(Balance ~ Rating + Income + Student + Limit + Cards + Age + Gender + Ethnicity + Married + Education, data = Credit))
+```
+
+```{R}
+reg <- regsubsets(Balance ~ ., data = Credit, method = "backward",
+nvmax = 11)
+reg.sum <- summary(reg)
+reg.sum$which
+```

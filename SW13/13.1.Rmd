@@ -1,0 +1,86 @@
+# Aufgabe 13.1
+
+In der Bibliothek ISLR hat es den Datensatz `Carseats`.
+Wir möchten Sales (Anzahl Kinderautositze) aufgrund von verschiedenen Prädiktoren in 400 verschiedenen Standorten vorhersagen.
+Der Datensatz enthält qualitative Prädiktoren, wie ShelveLoc als Indikator der Lage im Gestell,
+das heisst der Platz in einem Geschäft, wo der Autositz ausgestellt ist.
+Der Prädiktor nimmt die drei Werte Bad, Medium und Good an.
+Für qualitative Variablen generiert R Dummy-Variablen automatisch.
+
+```{R}
+library(ISLR)
+```
+
+## a)
+Untersuchen Sie den Datensatz mit head(Carseat) und ?Carseat.
+
+```{R}
+head(Carseats)
+?Carseats
+attach(Carseats)
+```
+
+## b)
+Finden Sie mit lm() ein multiples Regressionsmodell um Sales aus Price,
+Urban und US vorherzusagen.
+
+```{R}
+summary(lm(Sales ~ Price + Urban + US))
+```
+
+## c)
+Interpretieren Sie die Koeffizienten in diesem Modell. Achten Sie darauf, dass
+einige Variablen qualitativ sind.
+
+Mit Preis = 0, nicht Urban und ausserhalb der US hat es 13'043 Verkäufe (nicht realistisch).
+
+- Price: Pro Erhöhung des Preises um 1000$, sinken die Verkäufe um 54.46 Einheiten. Dies ist signifikant.
+- Urban: Falls der Standort in einer Urban Location ist, sinken die Verkäufe um 0.022 Einheiten. Dies ist nicht signifikant
+- US: Falls der Standort in den USA ist, steigen die Verkäufe um 1.2 Einheiten. Dies ist signifikant.
+
+## d)
+Schreiben Sie das Modell in Gleichungsform. Achten Sie darauf, dass Sie die
+qualitativen Variablen richtig behandeln.
+
+Urban: x2 = 1, falls Urban, 0 sonst
+US: x3 = 1, falls US, 0 sonst
+
+yi = B0 + B1 * Price + B2 * x2 + B3 * x3 + Ei
+= B0 + B1 * Price + B2 + B3 + E1, falls urban und in US
+= B0 + B1 * Price + B2 + E1, falls urban und *nicht* in US
+= B0 + B1 * Price + B3 + E1, falls ländlich und in US
+= B0 + B1 * Price + E1, falls ländlich und *nicht* in US
+
+## e)
+Für welche Prädiktoren kann die Nullhypothese H0 : βj = 0 verworfen werden?
+
+Für alle Prädiktoren ausser Urban, da dies der einzige Prädikator mit einem p-Wert > 0.05 ist.
+
+## f)
+Auf der Basis der vorhergehenden Frage, finden Sie ein kleineres Modell, das
+nur Prädiktoren verwendet für die es Hinweise auf einen Zusammenhang mit
+der Zielvariablen gibt.
+
+```{R}
+summary(lm(Sales ~ Price + US))
+```
+
+US: x2 = 1 falls in den USA, 0 sonst
+
+yi = B0 + B1 * Price + B2 * x2 + Ei
+   = B0 + B1 * Price + B2 + E1, falls in den USA
+   = B0 + B1 * Price + E1, falls ausserhalb der USA
+ 
+   = 13.03 + (-0.05 * Price) + 1.2 + E1, falls in den USA
+   = 13.03 + (-0.05 * Price) + E1, falls ausserhalb der USA
+
+
+## g) Wie genau passen die Modelle in a) und e) die Daten an?
+
+```{R}
+summary(lm(Sales ~ Price + Urban + US))
+summary(lm(Sales ~ Price  + US))
+```
+
+Das Modell a) passt die Daten zu 23.35% an, während das Modell e) die Daten zu 23.54% anpasst.
+Somit sind beide Modelle nicht sehr ausschlaggebend für die Variablität der Sales.

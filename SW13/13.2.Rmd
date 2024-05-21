@@ -1,0 +1,47 @@
+# Aufgabe 13.2
+
+Wir führen noch eine multiple lineare Regression für Auto aus der letzten Übung durch.
+
+```{R}
+library(ISLR)
+Auto.1 <- within(Auto, rm(name))
+```
+
+
+## a)
+Bestimmen Sie mit regsubset mit Option forward,
+das multiple Regressionsmodell mit zwei Prädiktoren
+und bestimmen Sie die Koeffizienten diese Modelles.
+Interpretieren Sie die Koeffizienten.
+
+```{R}
+library(leaps)
+reg <- regsubsets(mpg ~ ., data = Auto.1, method = "forward", nvmax = 6)
+summary(reg)$which # weight, year
+?Auto
+summary(lm(mpg ~ weight + year, data = Auto.1))
+```
+
+mpg = B0 + B1 * weight + B2 * year
+mpg = -14.35 - 0.007 * weight + 0.753 * year
+
+Bei Gewicht=0 und Jahr=0 (1900) beträgt die Reichweite -14.34 MPG (nicht realistisch).
+
+- Pro Pfund mehr Gewicht sinkt die Reichweite um 0.0065 MPG.
+- Pro Jahr (jüngeres Auto) steigt die Reichweite um 0.753 MPG.
+
+```{R}
+fit <- lm(mpg ~ weight * year, data = Auto)
+summary(fit)
+```
+
+## b)
+Hätte es einen Unterschied gegeben, wenn wir die Option backward gewählt hätten?
+
+```{R}
+library(leaps)
+reg <- regsubsets(mpg ~ ., data = Auto.1, method = "backward", nvmax = 6)
+summary(reg)$which # weight, year
+```
+
+Nein, die Option `backward` hätte in diesem Fall keinen Unterschied gemacht.
